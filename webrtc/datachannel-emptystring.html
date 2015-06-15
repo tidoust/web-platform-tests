@@ -99,7 +99,7 @@ and ensures that an empty string sent by one is received by the second.
     .then(gFirstConnection.setLocalDescription.bind(gFirstConnection))
     .then(exchangeDescription(gSecondConnection, gFirstConnection))
     .then(function() {
-      return gSecondConnection.createAnswer()
+      return gSecondConnection.createAnswer();
     })
     .then(gSecondConnection.setLocalDescription.bind(gSecondConnection))
     .then(exchangeDescription(gFirstConnection, gSecondConnection))
