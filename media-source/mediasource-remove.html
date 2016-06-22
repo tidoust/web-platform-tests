@@ -13,6 +13,7 @@
           {
               var sourceBuffer = mediaSource.addSourceBuffer(MediaSourceUtil.AUDIO_VIDEO_TYPE);
 
+              mediaSource.duration = 10;
               assert_throws(new TypeError(), function()
               {
                   sourceBuffer.remove(-1, 2);
@@ -24,6 +25,8 @@
           mediasource_test(function(test, mediaElement, mediaSource)
           {
               var sourceBuffer = mediaSource.addSourceBuffer(MediaSourceUtil.AUDIO_VIDEO_TYPE);
+
+              mediaSource.duration = 10;
 
               [ undefined, NaN, Infinity, -Infinity ].forEach(function(item)
               {
@@ -68,6 +71,7 @@
           {
               var sourceBuffer = mediaSource.addSourceBuffer(MediaSourceUtil.AUDIO_VIDEO_TYPE);
 
+              mediaSource.duration = 10;
               assert_throws(new TypeError(), function()
               {
                   sourceBuffer.remove(0, Number.NEGATIVE_INFINITY);
@@ -80,6 +84,7 @@
           {
               var sourceBuffer = mediaSource.addSourceBuffer(MediaSourceUtil.AUDIO_VIDEO_TYPE);
 
+              mediaSource.duration = 10;
               assert_throws(new TypeError(), function()
               {
                   sourceBuffer.remove(0, Number.NaN);
@@ -104,6 +109,20 @@
               test.done();
           }, "Test remove after SourceBuffer removed from mediaSource.");
 
+          mediasource_test(function(test, mediaElement, mediaSource)
+          {
+              var sourceBuffer = mediaSource.addSourceBuffer(MediaSourceUtil.AUDIO_VIDEO_TYPE);
+
+              assert_false(sourceBuffer.updating, "updating is false");
+              assert_equals(mediaSource.duration, NaN, "duration isn't set");
+
+              assert_throws(new TypeError(), function()
+              {
+                  sourceBuffer.remove(0, 0);
+              }, "remove");
+
+              test.done();
+          }, "Test remove with a NaN duration.");
 
           mediasource_test(function(test, mediaElement, mediaSource)
           {
